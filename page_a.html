@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<!-- +++++++++++++++ ส่วนของ HEAD +++++++++++++++ -->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kittichet page a</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <!-- ตั้งค่าการใช้งาน TailwindCSS  -->
+  <script src="http://cdn.tailwindcss.com"></script>
+  <!-- ตั้งค่าการใช้งาน Google Font กับ TailwindCSS -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            monomaniac: ["Monomaniac One"],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<!-- +++++++++++++++ ส่วนของ BODY +++++++++++++++ -->
+
+<body class="bg-black">
+  <!-- ส่วนของ Nav Bar -->
+  <div class=" flex item-center mt-8 mx-[150px]">
+    <!-- เมนูด้านซ้าย -->
+    <div class="w-full flex justify-start gap-4">
+      <a href="#" class="text-white font-monomaniac text-2xl">Portfolio</a>
+      <a href="#" class="text-white font-monomaniac text-2xl">About Me</a>
+      <a href="#" class="text-white font-monomaniac text-2xl">Get In Touch</a>
+    </div>
+
+    <!-- รูป hero ตรงกลาง -->
+    <div class="w-full flex justify-center">
+      <img src="./image/hello.png" alt="hello1" class="w-[75px]">
+    </div>
+
+    <!-- เมนูไอคอนด้านขวา -->
+    <div class="w-full flex justify-end gap-4">
+      <a href="#" class="text-white text-4xl"><i class="bi bi-github"></i></a>
+      <a href="#" class="text-white text-4xl"><i class="bi bi-instagram"></i></a>
+      <a href="#" class="text-white text-4xl"><i class="bi bi-twitter"></i></a>
+      <a href="#" class="text-white text-4xl"><i class="bi bi-linkedin"></i></a>
+
+    </div>
+  </div>
+
+  <!-- ส่วนของ ข้อความตรงกลางหน้าจอ -->
+  <div class="flex flex-col items-center mt-[120px] gap-5">
+    <span class="text-white font-monomaniac text-5xl ">Kittichet phiriyaphatchararat</span>
+    <span class="text-[#01D5A2] font-monomaniac text-3xl ">Freelance Web Devleoper</span>
+    <span class="text-white font-monomaniac text-5xl ">Base In THAILAND</span>
+  </div>
+
+  <!-- ส่วนของ รูปด้านล่าง  -->
+  <div class="flex justify-center mt-[80px]">
+    <img src="./image/profile2.jpg" alt="person1" class="w-[280px] h-[280px] object-cover border-[5px] border-[#01D5A2] rounded-full p-1 shadow-lg shadow-[#01D5A2]">
+
+  </div>
+
+</body>
+
+</html>

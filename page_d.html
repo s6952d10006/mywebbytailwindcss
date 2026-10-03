@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bake House by Armmy</title>
+
+    <!-- 🧠 ส่วนสมองของเว็บ: เอาไว้ดึงพวกฟอนต์สวยๆ กับไอคอนมาใช้งาน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- ใช้ฟอนต์ Lobster สำหรับหัวข้อแนวคาเฟ่ และ Prompt/Poppins สำหรับเนื้อหาให้อ่านง่าย -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* 🎨 แก๊งตัวแปรสี: ตั้งไว้ตรงนี้ เวลาอยากเปลี่ยนสีธีมเว็บจะได้แก้แค่ตรงนี้ที่เดียวจบ! */
+        :root {
+            --primary-orange: #c44b25; /* สีส้มอิฐ ตัวเด่นของร้าน */
+            --primary-hover: #a13d1e; /* สีส้มเข้ม เอาไว้ใช้ตอนเอาเมาส์ชี้ */
+            --bg-dark: #161616;
+            --bg-light: #ffffff;
+            --text-light: #f5f5f5;
+            --text-dark: #222222;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* แอนิเมชันนุ่มๆ ฟินๆ */
+        }
+
+        /* 🧹 เคลียร์ค่าขอบต่างๆ ที่เบราว์เซอร์ชอบแอบแถมมาให้ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ทำให้เวลาคลิกเมนูแล้วมันค่อยๆ เลื่อนสมูทๆ ลงมา ไม่วาร์ปปุบปับ */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* เซ็ตฟอนต์หลักและสีพื้นหลังของทั้งหน้าเว็บ */
+        body {
+            font-family: "Poppins", "Prompt", sans-serif;
+            background: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden; /* กันเว็บเลื่อนไปซ้ายขวาแล้วพัง */
+            color: var(--text-dark);
+        }
+
+        /* ล้างเส้นใต้ลิงก์ และจัดการรูปภาพไม่ให้ล้น */
+        a { text-decoration: none; color: inherit; }
+        img { display: block; max-width: 100%; height: auto; }
+        button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+        /* ------------------ แถบเมนูด้านบนสุด (Header) ------------------ */
+        .header-wrapper {
+            position: absolute; /* ให้เมนูลอยทับรูปปกไปเลย */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50; /* ดันให้อยู่ชั้นบนสุด จะได้ไม่โดนรูปอื่นบัง */
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%); /* ไล่สีดำให้ตัวหนังสือเมนูเด่นขึ้น */
+            padding: 15px 0;
+        }
+
+        .header {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto; /* จับให้อยู่กึ่งกลางเสมอ */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: "Lobster", cursive;
+            font-size: clamp(24px, 4vw, 32px); /* ขนาดตัวหนังสือยืดหยุ่นตามจอ */
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        /* แก๊งลิงก์เมนูต่างๆ */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: clamp(15px, 3vw, 35px);
+        }
+
+        .nav-menu a {
+            color: #f4f4f4;
+            font-size: 16px;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        /* ลูกเล่นขีดเส้นใต้เมนูตอนเอาเมาส์ชี้ ✨ */
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0%; /* ซ่อนขีดไว้ก่อน */
+            height: 2px;
+            background: var(--primary-orange);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--primary-orange);
+        }
+        .nav-menu a:hover::after, .nav-menu a.active::after {
+            width: 100%; /* โชว์ขีดเส้นใต้เต็มๆ */
+        }
+
+        /* ------------------ หน้าปกเว็บตู้มๆ (Hero Section) ------------------ */
+        .hero {
+            position: relative;
+            min-height: 100vh; /* ความสูงเต็มจอพอดี */
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* ดันข้อความไปทางขวา */
+            background-color: #111;
+            /* ใส่รูปพื้นหลัง พร้อมไล่สีมืดๆ ดรอปความสว่างรูป ข้อความจะได้ชัด */
+            background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 100%), url("./image/112.png");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 5% 50px;
+        }
+
+        .hero-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .hero-content {
+            max-width: 550px;
+            text-align: right;
+        }
+
+        .small-title {
+            color: var(--primary-orange);
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-family: "Lobster", cursive;
+        }
+
+        .hero-content h1 {
+            font-family: "Lobster", cursive;
+            font-size: clamp(40px, 6vw, 72px);
+            line-height: 1.1;
+            font-weight: 400;
+            margin-bottom: 35px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        /* ปุ่มกดสั่งซื้อ */
+        .btn-primary {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 150px;
+            height: 50px;
+            padding: 0 30px;
+            color: white;
+            background: var(--primary-orange);
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-3px); /* เด้งดึ๋งขึ้นนิดนึง */
+        }
+
+        /* ------------------ หัวข้อของแต่ละโซน (ใช้ซ้ำได้เลย) ------------------ */
+        .section-heading {
+            text-align: center;
+            font-family: "Lobster", cursive;
+            font-size: clamp(36px, 5vw, 48px);
+            font-weight: 400;
+            margin-bottom: 50px;
+            color: var(--text-dark);
+        }
+
+        /* ------------------ โซนสินค้ายอดฮิต (Top Products) ------------------ */
+        .products-section {
+            padding: 80px 5%;
+            background: var(--bg-light);
+        }
+
+        /* จัดเรียงรูปเป็น 3 คอลัมน์ (เหมือนตาราง 3 ช่อง) */
+        .product-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            border-radius: 8px;
+            overflow: hidden; /* กันรูปโผล่ทะลุกรอบตอนขยาย */
+            background: transparent;
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px); /* เอาเมาส์ชี้แล้วการ์ดลอยขึ้น */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* ใส่เงาให้ดูมีมิติ */
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* ------------------ แบนเนอร์คั่นหน้าเว็บ (ทำให้รูปอยู่นิ่งๆ เท่ๆ) ------------------ */
+       .promotion-banner, .about-banner {
+            width: 100%;
+            min-height: 450px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 40px 20px;
+        }
+        
+        .promotion-banner {
+            background-image: url("./image/Group\ 497.png"); 
+            background-color: #e3d2c1; /* สีสำรอง เผื่อรูปโหลดไม่ขึ้น */
+        }
+
+        .about-banner {
+            background-image: url("./image/Group\ 498.png");
+            background-color: #222222;
+        }
+
+        /* ------------------ โซนเมนูหมวดหมู่ (Explore More) ------------------ */
+        .explore-section {
+            padding: 80px 5%;
+            background: var(--bg-light);
+        }
+
+        /* ปุ่มเลือกหมวดหมู่ขนม */
+        .category-menu {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 15px;
+        }
+
+        .category {
+            background: transparent;
+            color: #888;
+            font-size: 16px;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+            padding: 5px 10px;
+        }
+
+        .category.active, .category:hover {
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+
+        /* ขีดส้มๆ ใต้เมนูที่กำลังเลือกอยู่ */
+        .category.active::after {
+            content: '';
+            position: absolute;
+            bottom: -17px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-orange);
+        }
+
+        /* เรียงรูปขนม 3 คอลัมน์ */
+        .explore-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .explore-card {
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        /* ตัดรูปให้เป็นสี่เหลี่ยมจัตุรัสเป๊ะๆ (1:1) */
+        .explore-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1; 
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .explore-card:hover img {
+            transform: scale(1.05); /* เอาเมาส์ชี้แล้วรูปซูมเข้าแบบสมูทๆ */
+        }
+
+        /* ------------------ โซนขนมแนะนำพร้อมราคา (Featured Treats) ------------------ */
+        .featured-section {
+            padding: 80px 5%;
+            background: var(--bg-light);
+        }
+
+        .featured-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .featured-item {
+            background: transparent;
+            transition: var(--transition);
+        }
+
+        .featured-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .featured-item img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .featured-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5px 0;
+        }
+
+        .featured-details h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .featured-details span {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-orange);
+        }
+
+        /* ------------------ ส่วนท้ายเว็บ (Footer) ไว้ใส่คอนแทค ------------------ */
+        .footer {
+            background: #161616;
+            color: #aaa;
+            padding: 60px 5% 30px;
+        }
+
+        .footer-top {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-family: "Lobster", cursive;
+            font-size: 32px;
+            color: var(--primary-orange);
+        }
+
+        /* ไอคอนโซเชียลกลมๆ */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: #111;
+            background: #fff;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-orange);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* เส้นคั่นบางๆ แบ่งโซน */
+        .footer-line {
+            max-width: 1200px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 30px auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-column h2 {
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-family: "Lobster", cursive;
+            letter-spacing: 1px;
+        }
+
+        .footer-column p, .footer-column > a {
+            display: block;
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: var(--transition);
+        }
+
+        .footer-column > a:hover {
+            color: var(--primary-orange);
+            transform: translateX(5px);
+        }
+
+        .news-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .news-item img {
+            width: 70px;
+            height: 60px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .news-item span {
+            color: var(--primary-orange);
+            font-size: 12px;
+            display: block;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .news-item p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.4;
+            color: #ddd;
+        }
+
+        .copyright {
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+        }
+
+        /* ==================================================================== */
+        /* 📱 โซนเสกเวทมนตร์ (Responsive): ปรับเลย์เอาต์ให้สวยเป๊ะทั้งแท็บเล็ตและมือถือ */
+        /* ==================================================================== */
+        
+        /* หน้าจอขนาดกลาง (แท็บเล็ต) ไอแพดต่างๆ */
+        @media screen and (max-width: 992px) {
+            /* เปลี่ยนจาก 3 คอลัมน์ หดเหลือ 2 คอลัมน์ จะได้ไม่เบียดกัน */
+            .product-grid, .explore-grid, .featured-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            /* ลดความสูงแบนเนอร์คั่นหน้าลงหน่อย */
+            .promotion-banner, .about-banner {
+                min-height: 300px;
+                background-attachment: scroll; /* ปิด Parallax ในแท็บเล็ตเพื่อลดการกระตุก */
+            }
+        }
+
+        /* หน้าจอขนาดเล็ก (มือถือ) */
+        @media screen and (max-width: 768px) {
+            /* จับเมนูมาเรียงใหม่ให้อยู่ตรงกลางจอ */
+            .header {
+                flex-direction: column;
+                padding: 10px 0;
+                background: rgba(0, 0, 0, 0.9); /* ทำพื้นหลังทึบๆ เมนูจะได้อ่านง่ายบนมือถือ */
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 10px;
+            }
+
+            /* ลดความสูงรูปปกหน้าแรก ดึงข้อความมาไว้ตรงกลาง */
+            .hero {
+                min-height: 80vh;
+                padding-top: 150px;
+                justify-content: center;
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            /* เปลี่ยนกริดรูปภาพทั้งหมดให้เหลือคอลัมน์เดียว (เรียงแถวตอนลึก) */
+            .product-grid, .explore-grid, .featured-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .promotion-banner, .about-banner {
+                min-height: 200px;
+            }
+
+            /* ทำให้เมนูหมวดหมู่ เลื่อนซ้ายขวา (Scroll) บนมือถือได้เก๋ๆ */
+            .category-menu {
+                justify-content: flex-start;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 10px;
+            }
+
+            .category {
+                white-space: nowrap; /* ห้ามตัวหนังสือตัดขึ้นบรรทัดใหม่ */
+            }
+
+            /* ส่วน Contact ท้ายเว็บ จัดให้อยู่ตรงกลางให้หมด */
+            .footer-top {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-content {
+                text-align: center;
+            }
+
+            .news-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .news-item img {
+                width: 100%;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 🍞 เริ่มต้นส่วนเนื้อหาเว็บ 🍞 -->
+
+    <!-- ส่วนที่ 1: เมนูด้านบน (ลอยติดจอ) -->
+    <header class="header-wrapper">
+        <div class="header">
+            <!-- โลโก้ร้าน -->
+            <a href="#home" class="logo">
+                <img src="./image/111.png" alt="Bake House">
+                <span>Bake House</span>
+            </a>
+            <!-- ปุ่มเมนูไปโซนต่างๆ -->
+            <nav class="nav-menu">
+                <a href="#home" class="active">Home</a>
+                <a href="#products">Products</a>
+                <a href="#explore">Explore</a>
+                <a href="#featured">Featured</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ส่วนที่ 2: ปกเว็บ (อลังการงานสร้าง) -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <p class="small-title">Delicious Cafe</p>
+                <h1>Sweet Treats,<br>Perfect Eats</h1>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn-primary">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ส่วนที่ 3: สินค้าตัวท็อป โชว์รูปเรียง 3 แถว -->
+    <section class="products-section" id="products">
+        <h2 class="section-heading">Top Products</h2>
+        <div class="product-grid">
+            <!-- เปลี่ยนรูปภาพตรงนี้ได้เลย (ระวัง path รูปด้วยนะ) -->
+            <div class="product-card"><img src="./image/Group494.png" alt="Product"></div>
+            <div class="product-card"><img src="./image/Group493.png" alt="Product"></div>
+            <div class="product-card"><img src="./image/Group492.png" alt="Product"></div>
+            <div class="product-card"><img src="./image/Group491.png" alt="Product"></div>
+            <div class="product-card"><img src="./image/Group490.png" alt="Product"></div>
+            <div class="product-card"><img src="./image/Group489.jpg" alt="Product"></div>
+        </div>
+    </section>
+
+    <!-- แบนเนอร์ขั้นจังหวะที่ 1 -->
+    <section class="promotion-banner" aria-label="Promotion Banner"></section>
+
+    <!-- ส่วนที่ 4: ค้นหาขนมตามหมวดหมู่ -->
+    <section class="explore-section" id="explore">
+        <h2 class="section-heading">Explore More</h2>
+        <!-- ปุ่มหมวดหมู่ (ใช้ JS ช่วยสลับสถานะด้านล่าง) -->
+        <div class="category-menu">
+            <button type="button" class="category active">Cake</button>
+            <button type="button" class="category">Muffins</button>
+            <button type="button" class="category">Croissant</button>
+            <button type="button" class="category">Bread</button>
+            <button type="button" class="category">Tart</button>
+            <button type="button" class="category">Favorite</button>
+        </div>
+        <!-- รูปขนมในหมวดหมู่ -->
+        <div class="explore-grid">
+            <div class="explore-card"><img src="./image/Rectangle25.png" alt="Muffin"></div>
+            <div class="explore-card"><img src="./image/Rectangle24.png" alt="Berry Cake"></div>
+            <div class="explore-card"><img src="./image/Rectangle23.png" alt="Fruit Cake"></div>
+            <div class="explore-card"><img src="./image/Rectangle22.png" alt="Cake"></div>
+            <div class="explore-card"><img src="./image/Rectangle21.png" alt="Chocolate Cake"></div>
+            <div class="explore-card"><img src="./image/Rectangle20.png" alt="Cupcake"></div>
+        </div>
+    </section>
+
+    <!-- แบนเนอร์ขั้นจังหวะที่ 2 -->
+    <section class="about-banner" aria-label="About Our Bakery"></section>
+
+    <!-- ส่วนที่ 5: ขนมแนะนำ (อันนี้มีราคาบอกด้วย) -->
+    <section class="featured-section" id="featured">
+        <h2 class="section-heading">Featured Treats</h2>
+        <div class="featured-grid">
+            <div class="featured-item">
+                <img src="./image/Rectangle154.png" alt="Puff Pastry">
+                <div class="featured-details">
+                    <h3>Doughnuts</h3>
+                    <span>59 Baht</span>
+                </div>
+            </div>
+            <div class="featured-item">
+                <img src="./image/Rectangle156.png" alt="Doughnuts">
+                <div class="featured-details">
+                    <h3>Brownies</h3> 
+                    <span>99 Baht</span>
+                </div>
+            </div>
+            <div class="featured-item">
+                <img src="./image/Rectangle153.png" alt="Brownies">
+                <div class="featured-details">
+                    <h3>Puff Pastry</h3>
+                    <span>79 Baht</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ส่วนที่ 6: ท้ายเว็บ (ติดต่อเรา) -->
+    <footer class="footer" id="contact">
+        <div class="footer-top">
+            <div class="footer-logo">Bake House</div>
+            <!-- ปุ่มโซเชียล ไปเปลี่ยนลิงก์ใน href="#" ได้เลย -->
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+                <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-line"></div> <!-- เส้นคั่น -->
+
+        <div class="footer-content">
+            <div class="footer-column">
+                <h2>About Us</h2>
+                <p><i class="fa-solid fa-phone" style="margin-right: 10px;"></i> (08) 908-8641</p>
+                <p><i class="fa-solid fa-envelope" style="margin-right: 10px;"></i> S6952D10006@gmail.com</p>
+                <p><i class="fa-solid fa-location-dot" style="margin-right: 10px;"></i> SAU, Phetkasem Road, Bangkok</p>
+            </div>
+            <div class="footer-column">
+                <h2>Explore</h2>
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
+                <a href="#explore">Categories</a>
+                <a href="#featured">Featured Treats</a>
+            </div>
+            <div class="footer-column">
+                <h2>Recent News</h2>
+                <div class="news-item">
+                    <img src="./image/66.png" alt="Recent News">
+                    <div>
+                        <span>Sept 16, 2026</span>
+                        <p>Freshly baked artisan loaves.</p>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <img src="./image/55.png" alt="Recent News">
+                    <div>
+                        <span>Sept 10, 2026</span>
+                        <p>Puff pastry bliss.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- เครดิตคนทำเว็บ เท่ๆ -->
+        <div class="copyright">
+            © 2026 Bake House Project. Crafted by Armmy.
+        </div>
+    </footer>
+
+    <!-- 🪄 JavaScript จิ๋ว เอาไว้ทำระบบปุ่มหมวดหมู่ (คลิกแล้วปุ่มเปลี่ยนสี) -->
+    <script>
+        // ค้นหาปุ่มเมนูทั้งหมด แล้วรอฟังคำสั่ง "คลิก"
+        document.querySelectorAll('.category').forEach(button => {
+            button.addEventListener('click', () => {
+                // ถ้ามีคนคลิกปุ๊บ ให้ล้างสีส้ม (active) ออกจากทุกปุ่มก่อน
+                document.querySelectorAll('.category').forEach(b => b.classList.remove('active'));
+                // แล้วค่อยระบายสีส้ม (active) คืนให้เฉพาะปุ่มที่เราเพิ่งกด
+                button.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

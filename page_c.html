@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<!-- ส่วนของ HEAD -->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kittichet page c</title>
+    <!-- ตั้งค่าการใช้งาน Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,7<PASSWORD>;1,8<PASSWORD>;1,9<PASSWORD>&display=swap"
+        rel="stylesheet" />
+    <!-- ตั้งค่าการใช้งาน Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- ตั้งค่าการใช้งาน TailwindCSS  -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- ตั้งค่าการใช้งาน Google Font กับ TailwindCSS -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        bebus: ["Bebas Neue", "sans-serif"],
+                        prompt: ["Prompt", "sans-serif"],
+                        inter: ["Inter", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<!-- ส่วนของ BODY -->
+
+<body class="bg-[#000C58] text-white min-h-screen selection:bg-[#7A99E9] selection:text-[#060135]">
+    <!-- ส่วนที่ 1 Nav Bar -->
+    <nav
+        class="flex flex-col md:flex-row items-center bg-[#060135] py-5 px-6 lg:px-[100px] sticky top-0 z-50 shadow-lg gap-4 md:gap-0">
+        <!-- ส่วนเมนูด้านซ้าย -->
+        <div class="w-full flex justify-center md:justify-start">
+            <a href="#hero"
+                class="text-white uppercase font-bebus text-3xl tracking-wide hover:text-[#7A99E9] transition">
+                Kittichet phiriyaphatchararat
+            </a>
+        </div>
+        <!-- ส่วนเมนูด้านขวา -->
+        <div class="w-full flex justify-center md:justify-end gap-5 flex-wrap">
+            <a href="#hero" class="text-white font-inter hover:text-yellow-300 transition">Work</a>
+            <a href="#about" class="text-white font-inter hover:text-yellow-300 transition">About</a>
+            <a href="#capabilities" class="text-white font-inter hover:text-yellow-300 transition">Skills</a>
+            <a href="#experience" class="text-white font-inter hover:text-yellow-300 transition">Experience</a>
+            <a href="#contact" class="text-white font-inter hover:text-yellow-300 transition">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ส่วนที่ 2 Hero Section -->
+    <section id="hero" class="flex flex-col md:flex-row mx-6 lg:mx-[280px] gap-12 mt-[80px] items-center">
+        <!-- ส่วนฝั่งซ้าย CTA -->
+        <div class="w-full flex flex-col gap-2">
+            <span class="text-white text-6xl font-bebus">
+                HI, I AM
+            </span>
+            <span class="text-[#7A99E9] text-6xl font-bebus">Kittichet</span>
+            <span class="text-gray-400 font-prompt text-xl">
+                นักพัฒนาเว็บไซต์ฝั่งฟรอนท์เอนด์จากประเทศไทย
+            </span>
+            <span class="text-gray-400 font-prompt text-xl">
+                ที่มีความหลงใหลในการสร้าง เว็บไซต์ที่เข้าถึงได้และเป็นมิตรกับผู้ใช้
+            </span>
+            <div class="mt-10 flex flex-wrap items-center gap-5">
+                <a href="#contact"
+                    class="bg-[#7A99E9] text-[#060135] text-lg font-prompt font-bold py-3 px-6 rounded-full hover:bg-white transition shadow-md">
+                    CONTACT ME 😁
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+                    class="bg-gray-800 text-[#7A99E9] text-lg flex justify-center items-center py-3 px-3 rounded-full hover:text-white hover:bg-gray-700 transition">
+                    &nbsp;<i class="bi bi-linkedin"></i>&nbsp;
+                </a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+                    class="bg-gray-800 text-[#7A99E9] text-lg flex justify-center items-center py-3 px-3 rounded-full hover:text-white hover:bg-gray-700 transition">
+                    &nbsp;<i class="bi bi-github"></i>&nbsp;
+                </a>
+            </div>
+        </div>
+
+        <!-- ส่วนฝั่งขวา แสดงรูป -->
+        <div class="w-full flex justify-center md:justify-end">
+            <img src="./image/person4.jpg"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80';"
+                alt="person4"
+                class="w-[320px] md:w-[350px] h-[380px] md:h-[420px] object-cover rounded-[40px] border-2 border-[#7A99E9]/40 shadow-2xl" />
+        </div>
+    </section>
+
+    <!-- ตีเส้นแบ่ง -->
+    <div class="h-[2px] bg-gray-500/60 mx-10 mt-[40px]"></div>
+
+    <!-- ส่วนที่ 3 About ME -->
+    <section id="about" class="flex flex-col md:flex-row mt-[40px] mx-6 lg:mx-[280px] gap-12">
+        <!-- ส่วนข้อความ ABOUT ME -->
+        <div class="w-full md:w-1/3">
+            <span class="text-white font-bebus text-6xl tracking-wide">
+                ABOUT ME
+            </span>
+        </div>
+
+        <!-- ส่วนของรายละเอียดของ About me -->
+        <div class="w-full md:w-2/3 flex flex-col gap-5">
+            <span class="text-white font-prompt text-xl leading-relaxed">
+                ผมเป็นนักพัฒนาเว็บไซต์ฝั่งฟรอนท์เอนด์ที่ทำงาน<br class="hidden sm:inline" />
+                อยู่ในกรุงเทพฯ กำลังมองหาโอกาสที่น่าตื่นเต้น<br class="hidden sm:inline" />
+                ในการทำงานมีพื้นฐานการศึกษาด้าน วิศวกรรมซอฟต์แวร์
+            </span>
+            <span class="text-gray-400 font-prompt text-lg leading-relaxed">
+                ชอบให้ความสำคัญกับการเข้าถึง (accessibility) เมื่อพัฒนาเว็บไซต์<br class="hidden sm:inline" />
+                มีความกระตือรือร้นและอยากรู้อยากเห็นเกี่ยวกับการแก้ปัญหาต่างๆ <br class="hidden sm:inline" />
+                ปัจจุบันกำลังศึกษาเรียนรู้เกี่ยวกับ React.js และการออกแบบ <br class="hidden sm:inline" />
+                เว็บไซต์เล็กน้อยเมื่อไม่ได้เขียนโปรแกรม ผมชอบเล่นฟุตบอล ถ่ายภาพ และเล่นเกม <br
+                    class="hidden sm:inline" />
+                leagueoflegend, valorant , apex legends กำลังเรียนรู้เพิ่มเติมเพื่อพัฒนาทักษะอยู่เสมอ
+            </span>
+            <div class="mt-3 flex flex-wrap items-center gap-5">
+                <a href="#"
+                    class="bg-[#7A99E9] text-[#060135] text-lg font-prompt font-bold py-3 px-6 rounded-full hover:bg-white transition shadow-md">
+                    Download RESUME 😁
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+                    class="bg-gray-800 text-[#7A99E9] text-lg flex justify-center items-center py-3 px-3 rounded-full hover:text-white hover:bg-gray-700 transition">
+                    &nbsp;<i class="bi bi-linkedin"></i>&nbsp;
+                </a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+                    class="bg-gray-800 text-[#7A99E9] text-lg flex justify-center items-center py-3 px-3 rounded-full hover:text-white hover:bg-gray-700 transition">
+                    &nbsp;<i class="bi bi-github"></i>&nbsp;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ส่วนที่ 4 ส่วนแสดงรูป -->
+    <div class="mt-10 flex justify-center mx-6 lg:mx-[280px]">
+        <img src="./images/action3.png"
+            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80';"
+            alt="action3"
+            class="w-full h-[300px] md:h-[400px] object-cover rounded-3xl border border-[#7A99E9]/30 shadow-2xl hover:scale-[1.01] transition duration-500" />
+    </div>
+
+    <!-- ตีเส้นแบ่ง -->
+    <div class="h-[2px] bg-gray-500/60 mx-10 mt-[40px]"></div>
+
+    <!-- ส่วนที่ 5 MY CAP. (My Capabilities) -->
+    <section id="capabilities" class="flex flex-col md:flex-row mt-[40px] mx-6 lg:mx-[280px] gap-12">
+        <div class="w-full md:w-1/3">
+            <span class="text-white font-bebus text-6xl tracking-wide">
+                MY CAPABILITIES
+            </span>
+            <p class="text-gray-400 font-prompt mt-2">
+                เทคโนโลยีและทักษะที่ผมใช้ในการพัฒนาเว็บไซต์
+            </p>
+        </div>
+        <div class="w-full md:w-2/3 grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div
+                class="bg-[#060135] p-5 rounded-2xl border border-gray-700/50 hover:border-[#7A99E9] transition flex flex-col items-center justify-center gap-2 text-center">
+                <i class="bi bi-filetype-html text-4xl text-[#7A99E9]"></i>
+                <span class="font-prompt font-medium">HTML5 & CSS3</span>
+            </div>
+            <div
+                class="bg-[#060135] p-5 rounded-2xl border border-gray-700/50 hover:border-[#7A99E9] transition flex flex-col items-center justify-center gap-2 text-center">
+                <i class="bi bi-filetype-js text-4xl text-yellow-400"></i>
+                <span class="font-prompt font-medium">JavaScript (ES6+)</span>
+            </div>
+            <div
+                class="bg-[#060135] p-5 rounded-2xl border border-gray-700/50 hover:border-[#7A99E9] transition flex flex-col items-center justify-center gap-2 text-center">
+                <i class="bi bi-code-slash text-4xl text-[#7A99E9]"></i>
+                <span class="font-prompt font-medium">Tailwind CSS</span>
+            </div>
+            <div
+                class="bg-[#060135] p-5 rounded-2xl border border-gray-700/50 hover:border-[#7A99E9] transition flex flex-col items-center justify-center gap-2 text-center">
+                <i class="bi bi-bootstrap text-4xl text-purple-400"></i>
+                <span class="font-prompt font-medium">Bootstrap</span>
+            </div>
+            <div
+                class="bg-[#060135] p-5 rounded-2xl border border-gray-700/50 hover:border-[#7A99E9] transition flex flex-col items-center justify-center gap-2 text-center">
+                <i class="bi bi-git text-4xl text-orange-500"></i>
+                <span class="font-prompt font-medium">Git & GitHub</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ตีเส้นแบ่ง -->
+    <div class="h-[2px] bg-gray-500/60 mx-10 mt-[40px]"></div>
+
+    <!-- ส่วนที่ 6 MY EXP. (My Experience) -->
+    <section id="experience" class="flex flex-col md:flex-row mt-[40px] mx-6 lg:mx-[280px] gap-12">
+        <div class="w-full md:w-1/3">
+            <span class="text-white font-bebus text-6xl tracking-wide">
+                MY EXPERIENCE
+            </span>
+        </div>
+        <div class="w-full md:w-2/3 flex flex-col gap-6">
+            <div class="bg-[#060135] p-6 rounded-2xl border-l-4 border-[#7A99E9]">
+                <div class="flex justify-between items-start flex-wrap gap-2">
+                    <h3 class="font-prompt text-xl font-bold text-white">Freelance Frontend Developer</h3>
+                    <span class="text-[#7A99E9] font-inter text-sm bg-[#7A99E9]/10 px-3 py-1 rounded-full">2023 -
+                        Present</span>
+                </div>
+                <p class="text-gray-300 font-prompt text-base mt-3 leading-relaxed">
+                    พัฒนาและออกแบบเว็บไซต์สำหรับลูกค้าองค์กรและร้านค้าออนไลน์ เน้นความสวยงาม ประสิทธิภาพในการโหลด และ
+                    Responsive รองรับทุกหน้าจออุปกรณ์
+                </p>
+            </div>
+
+            <div class="bg-[#060135] p-6 rounded-2xl border-l-4 border-yellow-400">
+                <div class="flex justify-between items-start flex-wrap gap-2">
+                    <h3 class="font-prompt text-xl font-bold text-white">Software Engineering Student</h3>
+                    <span class="text-yellow-400 font-inter text-sm bg-yellow-400/10 px-3 py-1 rounded-full">SAU
+                        University</span>
+                </div>
+                <p class="text-gray-300 font-prompt text-base mt-3 leading-relaxed">
+                    ศึกษาและสร้างสรรค์โปรเจกต์พัฒนาระบบซอฟต์แวร์ เว็บแอปพลิเคชัน และฐานข้อมูลตามหลักวิศวกรรมซอฟต์แวร์
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ตีเส้นแบ่ง -->
+    <div class="h-[2px] bg-gray-500/60 mx-10 mt-[40px]"></div>
+
+    <!-- ส่วนที่ 7 LET'S Connect -->
+    <section id="contact" class="flex flex-col md:flex-row mt-8 mx-6 lg:mx-[280px] gap-12">
+        <!-- ส่วนด้านซ้าย ข้อความและไอคอน -->
+        <div class="flex flex-col gap-7 w-full md:w-1/2">
+            <span class="text-white font-bebus text-6xl tracking-wide">
+                LET'S CONNECT
+            </span>
+            <span class="font-inter text-gray-200 font-light text-lg leading-relaxed">
+                Say hello at <a href="mailto:S6952D10006@sau.ac.th"
+                    class="text-[#7A99E9] underline hover:text-white transition">S6952D10006@sau.ac.th</a>
+                <br />
+                For more info, here's my resume
+            </span>
+            <div class="flex gap-5">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+                    class="text-[#7A99E9] hover:text-white bg-[#060135] w-10 h-10 rounded-full flex items-center justify-center text-xl transition border border-gray-700"><i
+                        class="bi bi-linkedin"></i></a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+                    class="text-[#7A99E9] hover:text-white bg-[#060135] w-10 h-10 rounded-full flex items-center justify-center text-xl transition border border-gray-700"><i
+                        class="bi bi-github"></i></a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
+                    class="text-[#7A99E9] hover:text-white bg-[#060135] w-10 h-10 rounded-full flex items-center justify-center text-xl transition border border-gray-700"><i
+                        class="bi bi-twitter-x"></i></a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                    class="text-[#7A99E9] hover:text-white bg-[#060135] w-10 h-10 rounded-full flex items-center justify-center text-xl transition border border-gray-700"><i
+                        class="bi bi-instagram"></i></a>
+            </div>
+        </div>
+
+        <!-- ส่วนด้านขวา Form ให้ป้อน -->
+        <div class="w-full md:w-1/2 flex flex-col gap-3">
+            <span class="font-inter text-gray-200 font-light">Name</span>
+            <input type="text" name="name" id="name" placeholder="Your Name"
+                class="p-3 rounded-[5px] bg-[#060135] border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-[#7A99E9] transition" />
+
+            <span class="font-inter text-gray-200 font-light">Email</span>
+            <input type="email" name="email" id="email" placeholder="Your Email"
+                class="p-3 rounded-[5px] bg-[#060135] border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-[#7A99E9] transition" />
+
+            <span class="font-inter text-gray-200 font-light">Subject</span>
+            <input type="text" name="subject" id="subject" placeholder="Subject"
+                class="p-3 rounded-[5px] bg-[#060135] border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-[#7A99E9] transition" />
+
+            <span class="font-inter text-gray-200 font-light">Message</span>
+            <textarea name="message" id="message" cols="30" rows="5" placeholder="Write your message here..."
+                class="p-3 rounded-[5px] bg-[#060135] border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-[#7A99E9] transition resize-none"></textarea>
+
+            <button type="button"
+                class="mt-2 bg-[#7A99E9] hover:bg-white hover:text-[#060135] text-[#060135] py-3 rounded-full font-prompt text-lg font-bold w-full sm:w-[250px] transition duration-300 shadow-md">
+                SUBMIT
+            </button>
+        </div>
+    </section>
+
+    <!-- ตีเส้นแบ่ง -->
+    <div class="h-[2px] bg-gray-500/60 mx-10 mt-[40px]"></div>
+
+    <!-- ส่วนที่ 8 Copyright -->
+    <footer class="text-center my-12 px-6">
+        <span class="text-lg md:text-l text-gray-200 font-prompt">
+            © 2026 Created by Armmy DTI SAU . All rights reserved.
+        </span>
+    </footer>
+
+</body>
+
+</html>
